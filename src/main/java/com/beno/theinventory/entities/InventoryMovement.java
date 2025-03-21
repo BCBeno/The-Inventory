@@ -1,6 +1,6 @@
 package com.beno.theinventory.entities;
 
-import com.beno.theinventory.enums.MovementType;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,14 +30,13 @@ public class InventoryMovement {
 
     @ManyToOne
     @JoinColumn(name = "supplier_id", nullable = true)
-    private Supplier supplier; // ✅ Only used for STOCK_IN movements
+    private Supplier supplier;
 
     @Column(nullable = false)
     private int quantity;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private MovementType movementType;
+    private String reason;
 
     @Column(nullable = false)
     private LocalDateTime timestamp;

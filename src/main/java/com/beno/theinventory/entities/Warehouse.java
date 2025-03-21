@@ -24,12 +24,6 @@ public class Warehouse {
     @Column(name = "location", nullable = false)
     private String location;
 
-    @Column(name = "capacity", nullable = false)
-    private int capacity;
-
-    @Column(name = "current_capacity", nullable = false)
-    private int currentCapacity;
-
     @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Inventory> inventoryList = new ArrayList<>();
 
