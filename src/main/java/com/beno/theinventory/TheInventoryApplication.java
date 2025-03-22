@@ -1,5 +1,6 @@
 package com.beno.theinventory;
 
+import com.beno.theinventory.exceptions.WarehouseNotFoundException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
