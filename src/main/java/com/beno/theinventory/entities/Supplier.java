@@ -11,8 +11,7 @@ import lombok.*;
 public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private String id;
+    private int id;
 
     @Column(name = "name", nullable = false)
     private String name;
