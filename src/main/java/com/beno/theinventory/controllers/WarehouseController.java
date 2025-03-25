@@ -14,16 +14,21 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/warehouses")
 @RequiredArgsConstructor
 public class WarehouseController {
-    @Autowired
     private final WarehouseService warehouseService;
 
-/*    public WarehouseController(WarehouseService warehouseService) {
-        this.warehouseService = warehouseService;
-    }*/
-
-    @PostMapping("")
+    @PostMapping()
     public ResponseEntity<?> createWarehouse(@RequestBody WarehouseDTO warehouseDTO) {
         return new ResponseEntity<>(warehouseService.createWarehouse(warehouseDTO), HttpStatus.CREATED);
+    }
+
+    @GetMapping()
+    public ResponseEntity<?> getAllWarehouses() {
+        return new ResponseEntity<>(warehouseService.getAllWarehouses(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getWarehouseById(@PathVariable int id) {
+        return new ResponseEntity<>(warehouseService.getWarehouseById(id), HttpStatus.OK);
     }
 
 }
