@@ -10,4 +10,6 @@ public interface WarehouseService {
     Map<String, Object> createWarehouse(WarehouseDTO warehouseDTO);
     ArrayList<WarehouseDTO> getAllWarehouses();
     WarehouseDTO getWarehouseById(int id);
+    void updateWarehouse(int id, WarehouseDTO warehouseDTO);
+    void updatePutWarehouse(int id, WarehouseDTO warehouseDTO);
 }

@@ -12,4 +12,5 @@ public interface WarehouseRepository extends JpaRepository<Warehouse, Integer> {
     Optional<Warehouse> findByName(String name);
     ArrayList<Warehouse> findAll();
     Optional<Warehouse> findById(int id);
+
 }

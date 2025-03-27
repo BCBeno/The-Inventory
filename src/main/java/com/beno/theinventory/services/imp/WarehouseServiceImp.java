@@ -50,4 +50,33 @@ public class WarehouseServiceImp implements WarehouseService {
         Warehouse warehouse = warehouseRepository.findById(id).orElseThrow(() -> new WarehouseNotFoundException("Warehouse not found"));
         return warehouseMapper.toWarehouseDTOFromWarehouse(warehouse);
     }
+
+    @Override
+    public void updateWarehouse(int id, WarehouseDTO warehouseDTO){
+        Warehouse warehouse = warehouseRepository.findById(id).orElseThrow(() -> new WarehouseNotFoundException("Warehouse not found"));
+        WarehouseDTO warehouseDTOdata = warehouseMapper.toWarehouseDTOFromWarehouse(warehouse);
+        if(warehouseDTO.getName() != null){
+            warehouseDTOdata.setName(warehouseDTO.getName());
+        }
+        if(warehouseDTO.getLocation() != null){
+            warehouseDTOdata.setLocation(warehouseDTO.getLocation());
+        }
+        warehouse = warehouseMapper.toWarehouseFromWarehouseDTO(warehouseDTOdata);
+        warehouseRepository.save(warehouse);
+    }
+
+    @Override
+    public void updatePutWarehouse(int id, WarehouseDTO warehouseDTO){
+        Warehouse warehouse = warehouseRepository.findById(id).orElseThrow(() -> new WarehouseNotFoundException("Warehouse not found"));
+        WarehouseDTO warehouseDTOdata = warehouseMapper.toWarehouseDTOFromWarehouse(warehouse);
+        if(warehouseDTO.getName() == null){
+            throw new WarehouseNotFoundException("Name is required");
+        }
+        if(warehouseDTO.getLocation() == null){
+            throw new WarehouseNotFoundException("Location is required");
+        }
+        warehouse = warehouseMapper.toWarehouseFromWarehouseDTO(warehouseDTO);
+        warehouse.setId(id);
+        warehouseRepository.save(warehouse);
+    }
 }
