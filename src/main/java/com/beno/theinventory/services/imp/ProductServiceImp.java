@@ -1,6 +1,7 @@
 package com.beno.theinventory.services.imp;
 
 import com.beno.theinventory.dtos.InventoryDTO;
+import com.beno.theinventory.dtos.OperationResponseDTO;
 import com.beno.theinventory.entities.Category;
 import com.beno.theinventory.entities.Inventory;
 import com.beno.theinventory.entities.InventoryId;
@@ -97,7 +98,7 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
-    public Map<String, String> updateProductPatch(Integer warehouseId, UUID id, InventoryDTO inventoryDTO) {
+    public OperationResponseDTO updateProductPatch(Integer warehouseId, UUID id, InventoryDTO inventoryDTO) {
         if(warehouseRepository.findById(warehouseId).isEmpty()) {
             throw new WarehouseNotFoundException("Warehouse not found");
         }
@@ -121,13 +122,11 @@ public class ProductServiceImp implements ProductService {
         if(inventoryDTO.getDescription() != null)
             inventory.getProduct().setDescription(inventoryDTO.getDescription());
         inventoryRepository.save(inventory);
-        return Map.of(
-                "message", "Product updated successfully"
-        );
+        return new OperationResponseDTO("Product updated successfully");
     }
 
     @PutMapping("/{warehouseId}/products/{id}")
-    public Map<String, String> updateProductPut(Integer warehouseId, UUID id, InventoryDTO inventoryDTO) {
+    public OperationResponseDTO updateProductPut(Integer warehouseId, UUID id, InventoryDTO inventoryDTO) {
         if(warehouseRepository.findById(warehouseId).isEmpty()) {
             throw new WarehouseNotFoundException("Warehouse not found");
         }
@@ -151,21 +150,17 @@ public class ProductServiceImp implements ProductService {
         if(inventoryDTO.getDescription() != null)
             inventory.getProduct().setDescription(inventoryDTO.getDescription());
         inventoryRepository.save(inventory);
-        return Map.of(
-                "message", "Product updated successfully"
-        );
+        return new OperationResponseDTO("Product updated successfully");
     }
 
     @Override
-    public Map<String, String> deleteProduct(Integer warehouseId, UUID id) {
+    public OperationResponseDTO deleteProduct(Integer warehouseId, UUID id) {
         if(warehouseRepository.findById(warehouseId).isEmpty()) {
             throw new WarehouseNotFoundException("Warehouse not found");
         }
         Inventory inventory = inventoryRepository.findById(new InventoryId(warehouseId, id)).orElseThrow(() -> new ProductNotFountException("Product not found"));
         inventoryRepository.delete(inventory);
-        return Map.of(
-                "message", "Product deleted successfully"
-        );
+        return new OperationResponseDTO("Product deleted successfully");
     }
 
 }

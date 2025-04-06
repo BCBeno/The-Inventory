@@ -1,5 +1,6 @@
 package com.beno.theinventory.services.imp;
 
+import com.beno.theinventory.dtos.OperationResponseDTO;
 import com.beno.theinventory.dtos.WarehouseDTO;
 import com.beno.theinventory.entities.Warehouse;
 import com.beno.theinventory.exceptions.WarehouseNotFoundException;
@@ -51,7 +52,7 @@ public class WarehouseServiceImp implements WarehouseService {
     }
 
     @Override
-    public void updateWarehouse(int id, WarehouseDTO warehouseDTO){
+    public OperationResponseDTO updateWarehouse(int id, WarehouseDTO warehouseDTO){
         Warehouse warehouse = warehouseRepository.findById(id).orElseThrow(() -> new WarehouseNotFoundException("Warehouse not found"));
         WarehouseDTO warehouseDTOdata = warehouseMapper.toWarehouseDTOFromWarehouse(warehouse);
         if(warehouseDTO.getName() != null){
@@ -62,10 +63,11 @@ public class WarehouseServiceImp implements WarehouseService {
         }
         warehouse = warehouseMapper.toWarehouseFromWarehouseDTO(warehouseDTOdata);
         warehouseRepository.save(warehouse);
+        return new OperationResponseDTO("Warehouse updated successfully");
     }
 
     @Override
-    public void updatePutWarehouse(int id, WarehouseDTO warehouseDTO){
+    public OperationResponseDTO updatePutWarehouse(int id, WarehouseDTO warehouseDTO){
         Warehouse warehouse = warehouseRepository.findById(id).orElseThrow(() -> new WarehouseNotFoundException("Warehouse not found"));
         WarehouseDTO warehouseDTOdata = warehouseMapper.toWarehouseDTOFromWarehouse(warehouse);
         if(warehouseDTO.getName() == null){
@@ -77,5 +79,6 @@ public class WarehouseServiceImp implements WarehouseService {
         warehouse = warehouseMapper.toWarehouseFromWarehouseDTO(warehouseDTO);
         warehouse.setId(id);
         warehouseRepository.save(warehouse);
+        return new OperationResponseDTO("Warehouse updated successfully");
     }
 }

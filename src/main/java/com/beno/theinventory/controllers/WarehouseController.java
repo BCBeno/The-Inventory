@@ -1,5 +1,6 @@
 package com.beno.theinventory.controllers;
 
+import com.beno.theinventory.dtos.OperationResponseDTO;
 import com.beno.theinventory.dtos.WarehouseDTO;
 
 import com.beno.theinventory.services.WarehouseService;
@@ -33,17 +34,13 @@ public class WarehouseController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<?> updateWarehouse(@PathVariable int id, @RequestBody WarehouseDTO warehouseDTO){
-        warehouseService.updateWarehouse(id, warehouseDTO);
-        LinkedHashMap<String, String> response = new LinkedHashMap<>();
-        response.put("message", "Warehouse updated successfully");
+        OperationResponseDTO response = warehouseService.updateWarehouse(id, warehouseDTO);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updatePutWarehouse(@PathVariable int id, @RequestBody WarehouseDTO warehouseDTO){
-        warehouseService.updatePutWarehouse(id, warehouseDTO);
-        LinkedHashMap<String, String> response = new LinkedHashMap<>();
-        response.put("message", "Warehouse updated successfully");
+        OperationResponseDTO response = warehouseService.updatePutWarehouse(id, warehouseDTO);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

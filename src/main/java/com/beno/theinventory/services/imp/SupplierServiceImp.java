@@ -1,5 +1,6 @@
 package com.beno.theinventory.services.imp;
 
+import com.beno.theinventory.dtos.OperationResponseDTO;
 import com.beno.theinventory.dtos.SupplierDTO;
 import com.beno.theinventory.entities.Supplier;
 import com.beno.theinventory.exceptions.SupplierNotFoundException;
@@ -46,7 +47,7 @@ public class SupplierServiceImp implements SupplierService {
     }
 
     @Override
-    public void updateSupplier(int id, SupplierDTO supplierDTO) {
+    public OperationResponseDTO updateSupplier(int id, SupplierDTO supplierDTO) {
         Supplier supplier = supplierRepository.findById(id).orElseThrow(() -> new SupplierNotFoundException("Supplier not found"));
         if (supplierDTO.getName() != null) {
             supplier.setName(supplierDTO.getName());
@@ -55,10 +56,11 @@ public class SupplierServiceImp implements SupplierService {
             supplier.setContactEmail(supplierDTO.getContactEmail());
         }
         supplierRepository.save(supplier);
+        return new OperationResponseDTO("Supplier updated successfully");
     }
 
     @Override
-    public void updatePutSupplier(int id, SupplierDTO supplierDTO) {
+    public OperationResponseDTO updatePutSupplier(int id, SupplierDTO supplierDTO) {
         Supplier supplier = supplierRepository.findById(id).orElseThrow(() -> new SupplierNotFoundException("Supplier not found"));
         if (supplierDTO.getName() != null) {
             supplier.setName(supplierDTO.getName());
@@ -67,5 +69,6 @@ public class SupplierServiceImp implements SupplierService {
             supplier.setContactEmail(supplierDTO.getContactEmail());
         }
         supplierRepository.save(supplier);
+        return new OperationResponseDTO("Supplier updated successfully");
     }
 }

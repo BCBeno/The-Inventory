@@ -1,6 +1,7 @@
 package com.beno.theinventory.services;
 
 import com.beno.theinventory.dtos.InventoryDTO;
+import com.beno.theinventory.dtos.OperationResponseDTO;
 
 import java.util.List;
 import java.util.Map;
@@ -14,9 +15,9 @@ public interface ProductService {
     InventoryDTO getProductById(Integer warehouseId, UUID id);
 
 
-    Map<String,String> updateProductPatch(Integer warehouseId, UUID id, InventoryDTO inventoryDTO);
+    OperationResponseDTO updateProductPatch(Integer warehouseId, UUID id, InventoryDTO inventoryDTO);
 
-    Map<String, String> updateProductPut(Integer warehouseId, UUID id, InventoryDTO inventoryDTO);
+    OperationResponseDTO updateProductPut(Integer warehouseId, UUID id, InventoryDTO inventoryDTO);
 
-    Map<String, String> deleteProduct(Integer warehouseId, UUID id);
+    OperationResponseDTO deleteProduct(Integer warehouseId, UUID id);
 }

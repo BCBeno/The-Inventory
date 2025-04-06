@@ -1,5 +1,6 @@
 package com.beno.theinventory.controllers;
 
+import com.beno.theinventory.dtos.OperationResponseDTO;
 import com.beno.theinventory.dtos.SupplierDTO;
 import com.beno.theinventory.services.SupplierService;
 import lombok.RequiredArgsConstructor;
@@ -32,13 +33,13 @@ public class SupplierController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<?> updateSupplier(@PathVariable int id, @RequestBody SupplierDTO supplierDTO) {
-        supplierService.updateSupplier(id, supplierDTO);
-        return new ResponseEntity<>(Map.of("message", "Supplier updated successfully"), HttpStatus.OK);
+        OperationResponseDTO response = supplierService.updateSupplier(id, supplierDTO);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updatePutSupplier(@PathVariable int id, @RequestBody SupplierDTO supplierDTO) {
-        supplierService.updatePutSupplier(id, supplierDTO);
-        return new ResponseEntity<>(Map.of("message", "Supplier updated successfully"), HttpStatus.OK);
+        OperationResponseDTO response = supplierService.updatePutSupplier(id, supplierDTO);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

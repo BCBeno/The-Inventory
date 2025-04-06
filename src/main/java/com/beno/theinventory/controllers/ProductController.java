@@ -1,6 +1,7 @@
 package com.beno.theinventory.controllers;
 
 import com.beno.theinventory.dtos.InventoryDTO;
+import com.beno.theinventory.dtos.OperationResponseDTO;
 import com.beno.theinventory.services.ProductService;
 import com.beno.theinventory.views.InventoryViews;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -19,7 +20,7 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping("/{warehouseId}/products")
-    public ResponseEntity<?> createProduct(@PathVariable Integer warehouseId, @RequestBody InventoryDTO inventoryDTO) {;
+    public ResponseEntity<?> createProduct(@PathVariable Integer warehouseId, @RequestBody InventoryDTO inventoryDTO) {
         return new ResponseEntity<>(productService.createProduct(inventoryDTO, warehouseId), HttpStatus.CREATED);
     }
 
@@ -47,6 +48,7 @@ public class ProductController {
 
     @DeleteMapping("/{warehouseId}/products/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable Integer warehouseId, @PathVariable UUID id) {
-        return new ResponseEntity<>(productService.deleteProduct(warehouseId, id), HttpStatus.OK);
+        OperationResponseDTO response = productService.deleteProduct(warehouseId, id);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
