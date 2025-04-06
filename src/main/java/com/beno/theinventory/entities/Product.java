@@ -22,6 +22,9 @@ public class Product {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "description")
+    private String description;
+
     @Column(name = "sku")
     private String sku;
 
@@ -34,6 +37,13 @@ public class Product {
 
     public UUID getId() {
         return id;
+    }
+
+    public Product(String name, String sku, String description, double price, Category category) {
+        this.name = name;
+        this.sku = sku;
+        this.price = price;
+        this.category = category;
     }
 
 }

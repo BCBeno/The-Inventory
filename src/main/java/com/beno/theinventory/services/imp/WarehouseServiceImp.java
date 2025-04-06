@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-@Log
 @RequiredArgsConstructor
 public class WarehouseServiceImp implements WarehouseService {
 

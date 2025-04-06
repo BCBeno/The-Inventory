@@ -17,5 +17,5 @@ public class Supplier {
     private String name;
 
     @Column(name = "email", nullable = false, unique = true)
-    private String email;
+    private String contactEmail;
 }

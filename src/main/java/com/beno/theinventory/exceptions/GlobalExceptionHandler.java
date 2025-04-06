@@ -20,6 +20,17 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(SupplierNotFoundException.class)
+    public ResponseEntity<Object> handleSupplierNotFoundException(SupplierNotFoundException e) {
+        Map<String, Object> body = Map.of(
+                "message", e.getMessage(),
+                "status", HttpStatus.NOT_FOUND,
+                "error", "Not Found",
+                "timestamp", LocalDateTime.now()
+        );
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleAllExceptions(Exception e) {
         Map<String, Object> body = Map.of(
@@ -29,5 +40,35 @@ public class GlobalExceptionHandler {
                 "timestamp", LocalDateTime.now()
         );
         return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(ProductAlreadyExistsException.class)
+    public ResponseEntity<Object> handleProductAlreadyExistsException(ProductAlreadyExistsException e) {
+        Map<String, Object> body = Map.of(
+                "message", e.getMessage(),
+                "status", HttpStatus.CONFLICT,
+                "error", "Conflict",
+                "timestamp", LocalDateTime.now()
+        );
+        return new ResponseEntity<>(body, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(ProductNotFountException.class)
+    public ResponseEntity<Object> handleProductNotFoundException(ProductNotFountException e) {
+        Map<String, Object> body = Map.of(
+                "message", e.getMessage(),
+                "status", HttpStatus.NOT_FOUND,
+                "error", "Not Found",
+                "timestamp", LocalDateTime.now()
+        );
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(StockQuantityEditedInProductException.class)
+    public ResponseEntity<Object> handleStockQuantityEditedInProductException(StockQuantityEditedInProductException e) {
+        Map<String, Object> body = Map.of(
+                "message", e.getMessage()
+        );
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 }

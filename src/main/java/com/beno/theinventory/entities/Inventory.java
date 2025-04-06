@@ -8,6 +8,7 @@ import lombok.*;
 @Table(name = "inventory")
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Inventory {
     @EmbeddedId
     private InventoryId id;
