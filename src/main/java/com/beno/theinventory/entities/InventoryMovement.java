@@ -35,7 +35,7 @@ public class InventoryMovement {
     @Column(nullable = false)
     private int quantity;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String reason;
 
     @Column(nullable = false)
