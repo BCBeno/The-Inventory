@@ -15,6 +15,7 @@ import com.beno.theinventory.repositories.InventoryRepository;
 import com.beno.theinventory.repositories.ProductRepository;
 import com.beno.theinventory.repositories.WarehouseRepository;
 import com.beno.theinventory.services.ProductService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -32,6 +33,7 @@ public class ProductServiceImp implements ProductService {
     private final CategoryRepository categoryRepository;
 
     @Override
+    @Transactional
     public Map<String, Object> createProduct(InventoryDTO inventoryDTO, Integer warehouseId) {
         if(warehouseRepository.findById(warehouseId).isEmpty()) {
             throw new WarehouseNotFoundException("Warehouse not found");
@@ -98,6 +100,7 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
+    @Transactional
     public OperationResponseDTO updateProductPatch(Integer warehouseId, UUID id, InventoryDTO inventoryDTO) {
         if(warehouseRepository.findById(warehouseId).isEmpty()) {
             throw new WarehouseNotFoundException("Warehouse not found");
@@ -125,7 +128,8 @@ public class ProductServiceImp implements ProductService {
         return new OperationResponseDTO("Product updated successfully");
     }
 
-    @PutMapping("/{warehouseId}/products/{id}")
+    @Override
+    @Transactional
     public OperationResponseDTO updateProductPut(Integer warehouseId, UUID id, InventoryDTO inventoryDTO) {
         if(warehouseRepository.findById(warehouseId).isEmpty()) {
             throw new WarehouseNotFoundException("Warehouse not found");
@@ -154,6 +158,7 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
+    @Transactional
     public OperationResponseDTO deleteProduct(Integer warehouseId, UUID id) {
         if(warehouseRepository.findById(warehouseId).isEmpty()) {
             throw new WarehouseNotFoundException("Warehouse not found");

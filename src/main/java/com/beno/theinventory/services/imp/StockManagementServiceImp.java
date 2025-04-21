@@ -16,6 +16,7 @@ import com.beno.theinventory.repositories.InventoryRepository;
 import com.beno.theinventory.repositories.SupplierRepository;
 import com.beno.theinventory.repositories.WarehouseRepository;
 import com.beno.theinventory.services.StockManagementService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -57,6 +58,7 @@ public class StockManagementServiceImp implements StockManagementService {
     }
 
     @Override
+    @Transactional
     public IncreaseDecreaseStockResponse increaseStock(Integer warehouseId, UUID productId, IncreaseDecreaseStockDTO increaseDecreaseStockDTO) {
         if (supplierRepository.findById(increaseDecreaseStockDTO.getSupplierId()).isEmpty())
             throw new SupplierNotFoundException("Supplier not found");
@@ -82,6 +84,7 @@ public class StockManagementServiceImp implements StockManagementService {
     }
 
     @Override
+    @Transactional
     public IncreaseDecreaseStockResponse decreaseStock(Integer warehouseId, UUID productId, IncreaseDecreaseStockDTO increaseDecreaseStockDTO) {
 
         Inventory inventory = inventoryRepository.findById(new InventoryId(warehouseId, productId)).orElseThrow(() -> new ProductNotFountException("Product not found"));
@@ -106,6 +109,7 @@ public class StockManagementServiceImp implements StockManagementService {
     }
 
     @Override
+    @Transactional
     public IncreaseDecreaseStockResponse transferStock(Integer warehouseId, UUID productId, IncreaseDecreaseStockDTO increaseDecreaseStockDTO) {
         Inventory inventory = inventoryRepository.findById(new InventoryId(warehouseId, productId)).orElseThrow(() -> new ProductNotFountException("Product not found"));
         if(inventory.getQuantity() < increaseDecreaseStockDTO.getQuantity())

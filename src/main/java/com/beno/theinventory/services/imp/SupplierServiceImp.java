@@ -7,6 +7,7 @@ import com.beno.theinventory.exceptions.SupplierNotFoundException;
 import com.beno.theinventory.mappers.SupplierMapper;
 import com.beno.theinventory.repositories.SupplierRepository;
 import com.beno.theinventory.services.SupplierService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ public class SupplierServiceImp implements SupplierService {
     private final SupplierMapper supplierMapper;
 
     @Override
+    @Transactional
     public Map<String, Object> createSupplier(SupplierDTO supplierDTO) {
         if (supplierDTO.getContactEmail() == null || supplierDTO.getContactEmail().isEmpty()) {
             throw new IllegalArgumentException("Contact email cannot be null or empty");
@@ -47,6 +49,7 @@ public class SupplierServiceImp implements SupplierService {
     }
 
     @Override
+    @Transactional
     public OperationResponseDTO updateSupplier(int id, SupplierDTO supplierDTO) {
         Supplier supplier = supplierRepository.findById(id).orElseThrow(() -> new SupplierNotFoundException("Supplier not found"));
         if (supplierDTO.getName() != null) {
@@ -60,6 +63,7 @@ public class SupplierServiceImp implements SupplierService {
     }
 
     @Override
+    @Transactional
     public OperationResponseDTO updatePutSupplier(int id, SupplierDTO supplierDTO) {
         Supplier supplier = supplierRepository.findById(id).orElseThrow(() -> new SupplierNotFoundException("Supplier not found"));
         if (supplierDTO.getName() != null) {

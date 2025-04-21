@@ -7,6 +7,7 @@ import com.beno.theinventory.exceptions.WarehouseNotFoundException;
 import com.beno.theinventory.mappers.WarehouseMapper;
 import com.beno.theinventory.repositories.WarehouseRepository;
 import com.beno.theinventory.services.WarehouseService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,7 @@ public class WarehouseServiceImp implements WarehouseService {
     }
 
     @Override
+    @Transactional
     public OperationResponseDTO updateWarehouse(int id, WarehouseDTO warehouseDTO){
         Warehouse warehouse = warehouseRepository.findById(id).orElseThrow(() -> new WarehouseNotFoundException("Warehouse not found"));
         WarehouseDTO warehouseDTOdata = warehouseMapper.toWarehouseDTOFromWarehouse(warehouse);
@@ -67,6 +69,7 @@ public class WarehouseServiceImp implements WarehouseService {
     }
 
     @Override
+    @Transactional
     public OperationResponseDTO updatePutWarehouse(int id, WarehouseDTO warehouseDTO){
         Warehouse warehouse = warehouseRepository.findById(id).orElseThrow(() -> new WarehouseNotFoundException("Warehouse not found"));
         WarehouseDTO warehouseDTOdata = warehouseMapper.toWarehouseDTOFromWarehouse(warehouse);
