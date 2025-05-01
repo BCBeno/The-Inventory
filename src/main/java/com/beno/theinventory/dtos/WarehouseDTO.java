@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class WarehouseDTO {
-    int id;
-    String name;
-    String location;
+    private int id;
+    private String name;
+    private String location;
 }
