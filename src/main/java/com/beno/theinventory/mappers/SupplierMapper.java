@@ -7,6 +7,14 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface SupplierMapper {
-    public SupplierDTO toSupplierDTOfromSupplier(Supplier supplier);
-    public Supplier toSupplierFromSupplierDTO(SupplierDTO supplierDTO);
+
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "name", source = "name")
+    @Mapping(target = "contactEmail", source = "contactEmail")
+    SupplierDTO toSupplierDTOfromSupplier(Supplier supplier);
+
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "name", source = "name")
+    @Mapping(target = "contactEmail", source = "contactEmail")
+    Supplier toSupplierFromSupplierDTO(SupplierDTO supplierDTO);
 }
